@@ -1,0 +1,189 @@
+/*************************************************
+    Custom properties
+*************************************************/
+:root {
+    --sidebar-width: 16em;
+    --hidden-sidebar-width: -16em;
+    --blue-color: #0d6efd;
+    --dark-gray: #212529;
+}
+
+/*************************************************
+    Style
+*************************************************/
+/* Collapsable content */
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+/* Navbar */
+.navbar {
+    padding: 1.2em 0 1.2em 0;
+}
+
+.navbar-brand.h1{
+    font-size: 1em;
+}
+
+/* Filter */
+#filter {
+    padding: 0.5em;
+    color: white;
+}
+
+#filter .modal-content{
+    border: 0;
+}
+
+#filter i {
+    font-size: 1.7em;
+}
+
+#filter .modal i {
+    font-size: 1em;
+    margin-right: 0.5em;
+}
+
+#filter .dropdown ul li {
+    font-size: 0.9em;
+}
+
+/* Sidebar */
+#sidebar {
+    margin-left: var(--hidden-sidebar-width);
+    min-width: var(--sidebar-width);
+    max-width: var(--sidebar-width);
+    transition: all 0.3s;
+}
+
+#sidebar .title {
+    font-size: 1.5em;
+    padding: 1em 0 1em 0;
+}
+
+#sidebar.active {
+    margin-left: 0;
+}
+
+#sidebar ul.components {
+    padding: 1.3em 0;
+    border-top: 1px solid white;
+}
+
+#sidebar ul li {
+    display: block;
+}
+
+#sidebar ul li a .navbar-brand.h1{
+        font-size: x-large;
+    }{
+    padding: 0.6em;
+    display: block;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar ul li:hover {
+    color: white;
+    background: var(--blue-color);
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.paddingNav{
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+/* Page Content */
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+#content .title {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#content .card {
+    margin: 1em 0 1em 0;
+}
+
+.resizeable{
+    resize: both;
+    overflow: auto;
+}
+
+/* Tables */
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
+
+
+
+
+
+/*************************************************
+    Media Queries
+*************************************************/
+/* Small devices */
+@media (min-width: 576px) {
+
+}
+
+/* Medium devices */
+@media (min-width: 768px) {
+    /* Sidebar starts hidden */
+    #sidebar {
+        margin-left: 0;
+    }
+    #sidebar.active {
+        margin-left: var(--hidden-sidebar-width);
+    }
+}
+
+/* Large devices */
+@media (min-width: 992px) {
+    .navbar-brand.h1{
+        font-size: 1.5em;
+    }
+    #content .title {
+        font-size: 3em;
+        font-weight: bold;
+    }
+}
+
+/* X-Large devices */
+@media (min-width: 1200px) {
+
+}
+
+/* XX-Large devices */
+@media (min-width: 1400px) {
+
+}
