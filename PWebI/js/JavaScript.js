@@ -13,7 +13,6 @@ class WidgetList{
     }
 
     addWidget(widget){
-        console.log(widget.title + ' and ' + widget.value);
         this.arrayWidgets.push(widget);
 
     }
@@ -95,7 +94,6 @@ function getSensors() {
         widgetList.addWidget(new Widget(null, 'Total sensores', numWidgets));
 
         //agreguem tots els widgets a WidgetList que tindra com atribut l'array de widgets
-        console.log(resp.data['data']['sensors']);
         console.log(resp.data['data']['sensors'].forEach(res => widgetList.addWidget(new Widget(res['id'], res['name'], res['value'], new Date(res['updated_at']), res['unit']))));
 
 
@@ -110,21 +108,24 @@ function getSensors() {
  * @returns {*}
  */
 function getReadingsWithDate(idSensor, from, to){
-    try {
-        return axios.get('https://api.smartcitizen.me/v0/devices/1616/readings?sensor_id=' + idSensor + '&rollup=4h&from=' + from.toString() +  '&to=' + to.toString()).then(resp => {
-            //fiquem el primer widget que indica en numero de Widgets
+    if(from > to) {
+        console.log("Ordre de les dates incorrecte");
+    }else {
+        try {
+            return axios.get('https://api.smartcitizen.me/v0/devices/1616/readings?sensor_id=' + idSensor + '&rollup=4h&from=' + from.toString() + '&to=' + to.toString()).then(resp => {
+                //fiquem el primer widget que indica en numero de Widgets
 
 
-            //agreguem tots els widgets a WidgetList que tindra com atribut l'array de widgets
-            resp['data']['readings'].forEach(function (res) {
-                widgetList.arrayWidgets.forEach( (r) => {
-                    if(r.id === idSensor) r.arrayReadings.push(res)
+                //agreguem tots els widgets a WidgetList que tindra com atribut l'array de widgets
+                resp['data']['readings'].forEach(function (res) {
+                    widgetList.arrayWidgets.forEach((r) => {
+                        if (r.id === idSensor) r.arrayReadings.push(res)
+                    });
                 });
-                console.log(res);
             });
-        });
-    }catch(er){
-        console.log("ERROR! aquest sensor no te readings.")
+        } catch (er) {
+            console.log("ERROR! aquest sensor no te readings.")
+        }
     }
 }
 
@@ -144,7 +145,6 @@ function getReadings(idSensor){
                 widgetList.arrayWidgets.forEach( (r) => {
                     if(r.id === idSensor) r.arrayReadings.push(res)
                 });
-                console.log(res);
             });
         });
     }catch(er){
@@ -175,6 +175,8 @@ function updateDateFilters(){
         }
 
     })).then((r) => {
+        deleteAllWidgets()
+        showAllWidgets(widgetList.arrayWidgets);
         generateGraph(widgetList.arrayWidgets);
         deleteTables();
         generateTables(widgetList.arrayWidgets);
@@ -237,8 +239,6 @@ function generateGraph(widgets = []) {
             dataPoints: datapointsWidget
         })
     })
-    console.log("Aqui tens")
-    console.log(data);
     var chart = new CanvasJS.Chart("chartContainer", {
         animationEnabled: true,
         title: {
@@ -475,8 +475,7 @@ function showBarChart(widgets){
         legendMarkerColor: "grey",
         legendText: widgets.title,
         dataPoints: datapointsWidget
-    })
-    console.log(data);
+    });
 
     var chart = new CanvasJS.Chart("barChartContainer", {
         animationEnabled: true,
