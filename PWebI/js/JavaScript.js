@@ -218,7 +218,6 @@ function deleteTables(){
  * @param widgets: array de widgets que mostrarem al graphic
  */
 function generateGraph(widgets = []) {
-
     const basicBlock = document.getElementById("chartContainer");
     while (basicBlock.firstChild) {
         basicBlock.removeChild(basicBlock.firstChild);
@@ -373,6 +372,7 @@ function startSystem() {
             generateGraph(widgetList.arrayWidgets);
             generateTables(widgetList.arrayWidgets);
             showSensorsFilters();
+            deleteBarChart();
         });
 
     });
@@ -460,6 +460,9 @@ function showBarChart(widgets){
         basicBlock.removeChild(basicBlock.firstChild);
     }
 
+    const cardBarChart = document.getElementById("barChartCard");
+    cardBarChart.setAttribute("style", "");
+
     if (widgets === []) return;
     var data = [];
 
@@ -499,6 +502,9 @@ function deleteBarChart(){
     while (basicBlock.firstChild) {
         basicBlock.removeChild(basicBlock.firstChild);
     }
+    //amaguem l'espai del grafic de barres
+    const cardBarChart = document.getElementById("barChartCard");
+    cardBarChart.setAttribute("style", "display: none;");
 }
 
 const widgetList = new WidgetList();
